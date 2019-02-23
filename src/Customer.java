@@ -1,3 +1,7 @@
+import java.util.concurrent.ThreadLocalRandom;
+import java.math.*;
+import java.util.*;
+
 public abstract class Customer
 {
     protected Store business;
@@ -5,6 +9,7 @@ public abstract class Customer
     protected int numToolsRented;
 
     protected int maxTools;
+    protected int minTools;
     protected int minDays;
     protected int maxDays;
 
@@ -46,11 +51,11 @@ public abstract class Customer
 
         if (availableTools >= maxTools)
         {
-            numToolsToRent = ThreadLocalRandom.current().nextInt(1, maxTools + 1);
+            numToolsToRent = ThreadLocalRandom.current().nextInt(minTools, maxTools + 1);
         }
         else
         {
-            numToolsToRent = ThreadLocalRandom.current().nextInt(1, availableTools + 1);
+            numToolsToRent = ThreadLocalRandom.current().nextInt(minTools, availableTools + 1);
         }
 
         for(int i = 0; i < numToolsToRent; i++)
