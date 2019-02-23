@@ -4,12 +4,12 @@ public abstract class Customer
     protected List<Rental> Rentals;
     protected int numToolsRented;
 
-    public Customer()
+    public void Customer()
     {
         Rentals = new ArrayList<Rental>();
     }
 
-    public update(int time, boolean morning)
+    public void update(int time, boolean morning)
     {
         if(morning)
         {
@@ -30,9 +30,9 @@ public abstract class Customer
         }
     }
 
-    protected rent();
+    protected void rent();
 
-    protected returnTools(Rental rent)
+    protected void returnTools(Rental rent)
     {
         Business.returnTools(rent);
         numToolsRented -= rent.numTools();
