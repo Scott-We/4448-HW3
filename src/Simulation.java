@@ -2,6 +2,8 @@ import java.util.ArrayList;
 
 class Simulation {
 	private ArrayList<String> customers;
+	//private Store s;
+	
 	Simulation(){
 		customers = new ArrayList<>();
 	}
