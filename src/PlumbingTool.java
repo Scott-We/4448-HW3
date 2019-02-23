@@ -1,6 +1,6 @@
 public class PlumbingTool extends Tool {
-	public PlumbingTool(String _ID) {
-		super(_ID);
+	public PlumbingTool(int n) {
+		super("Plumbing Tool #" + Integer.toString(n));
 	}
 
 	public int getPrice() {

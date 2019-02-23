@@ -1,6 +1,6 @@
 public class WoodworkingTool extends Tool {
-	public WoodworkingTool(String _ID) {
-		super(_ID);
+	public WoodworkingTool(int n) {
+		super("Woodworking Tool #" + Integer.toString(n));
 	}
 
 	public int getPrice() {

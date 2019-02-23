@@ -1,6 +1,6 @@
 public class PaintingTool extends Tool {
-	public PaintingTool(String _ID) {
-		super(_ID);
+	public PaintingTool(int n) {
+		super("Painting Tool #" + Integer.toString(n));
 	}
 
 	public int getPrice() {
