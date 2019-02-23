@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Store {
+class Store {
 	private int day;
 	private int numTools;
 	ArrayList<Tool> tools;
@@ -10,6 +10,11 @@ public class Store {
 		numTools = 20;
 		
 	}
+	
+	boolean setup(){
+		return(true);
+	}
+	
 	void update(int dayNumber){
 		day = dayNumber;
 	}

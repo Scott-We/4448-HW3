@@ -2,11 +2,11 @@ import java.util.ArrayList;
 
 class Simulation {
 	private ArrayList<String> customers;
-	//private Store store;
+	private Store store;
 	
 	Simulation(){
 		customers = new ArrayList<>();
-		//store = new Store();
+		store = new Store();
 	}
 	boolean setup(){
 		int numCustomers = 10;
