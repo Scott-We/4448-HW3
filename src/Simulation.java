@@ -1,8 +1,18 @@
-public class Simulation {
+import java.util.ArrayList;
+
+class Simulation {
+	private ArrayList<String> customers;
 	Simulation(){
-	
+		customers = new ArrayList<>();
 	}
 	boolean setup(){
+		int numCustomers = 10;
+		
+		for(int i = 0; i < numCustomers; i++){
+			customers.add("Customer" + (i+1));
+		}
+		
+		System.out.println(customers);
 		return(true);
 	}
 	
