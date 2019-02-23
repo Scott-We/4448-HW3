@@ -17,7 +17,6 @@ class Simulation {
 		
 		store.setup();
 		
-		System.out.println(customers);
 		return(true);
 	}
 	

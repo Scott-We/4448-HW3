@@ -53,24 +53,28 @@ class Store {
 		return(tools);
 	}
 	
-	Rental rent(int[] iDs, int numDays){
+	Rental rent(ArrayList<Tool> toRent, int numDays){
 		
 		Rental r = new Rental(day, day + numDays);
 		
 		int cost = 0;
 		
-		for(int i = 0; i < iDs.length; i++){
-			Tool t = tools.get(iDs[i]);
+		for(Tool t : toRent){
 			r.addTool(t);
 			cost = cost+t.getPrice();
+			tools.remove(t);
 		}
 		
 		proffit += cost;
+		rentals.add(r);
 		
 		return(r);
 	}
 	
 	void returnTools(Rental r){
-	
+		ArrayList<Tool> returned = r.getTools();
+		for(Tool t : returned){
+			tools.add(t);
+		}
 	}
 }
