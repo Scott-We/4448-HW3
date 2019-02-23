@@ -4,6 +4,6 @@ public class YardworkingTool extends Tool {
 	}
 
 	public int getPrice() {
-		return 100;
+		return 6;
 	}
 }
