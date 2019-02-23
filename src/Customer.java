@@ -19,13 +19,13 @@ public abstract class Customer
             {
                 if(rentals.get(i).isDue(time))
                 {
-                    returnTools(Rentals.get(i));
+                    returnTools(rentals.get(i));
                 }
             }
         }
         else
         {
-            if(numToolsRented < 3 && Business.getNumTools() > 0)
+            if(numToolsRented < 3 && business.getNumTools() > 0)
             {
                 rent();
             }
