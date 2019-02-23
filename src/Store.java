@@ -4,12 +4,16 @@ import java.util.ArrayList;
 class Store {
 	private int day;
 	private int numTools;
-	ArrayList<Tool> tools;
+	private int proffit;
+	private ArrayList<Tool> tools;
+	private ArrayList<Rental> rentals;
 	
 	Store(){
 		day = 0;
 		numTools = 20;
+		proffit = 0;
 		tools = new ArrayList<>();
+		rentals = new ArrayList<>();
 	}
 	
 	boolean setup(){
@@ -41,7 +45,36 @@ class Store {
 		day = dayNumber;
 	}
 	
-	//Rental rent(ArrayList<String> Ids){}
+	int getNumTools(){
+		return(numTools);
+	}
 	
-	//void return(Rental r){}
+	ArrayList<Tool> getAvailableTools(){
+		return(tools);
+	}
+	
+	Rental rent(ArrayList<Tool> toRent, int numDays){
+		
+		Rental r = new Rental(day, day + numDays);
+		
+		int cost = 0;
+		
+		for(Tool t : toRent){
+			r.addTool(t);
+			cost = cost+t.getPrice();
+			tools.remove(t);
+		}
+		
+		proffit += cost;
+		rentals.add(r);
+		
+		return(r);
+	}
+	
+	void returnTools(Rental r){
+		ArrayList<Tool> returned = r.getTools();
+		for(Tool t : returned){
+			tools.add(t);
+		}
+	}
 }
