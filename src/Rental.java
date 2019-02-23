@@ -7,6 +7,8 @@ public class Rental {
 	public Rental(int _rentDate, int _returnDate) {
 		rentDate = _rentDate;
 		returnDate = _returnDate;
+
+		tools = new ArrayList<Tool>();
 	}
 
 	public void addTool(Tool t) {
