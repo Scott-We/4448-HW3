@@ -4,6 +4,10 @@ public abstract class Customer
     protected ArrayList<Rental> rentals;
     protected int numToolsRented;
 
+    protected int maxTools;
+    protected int minDays;
+    protected int maxDays;
+
     public Customer(Store business)
     {
         rentals = new ArrayList<Rental>();
@@ -32,7 +36,50 @@ public abstract class Customer
         }
     }
 
-    protected void rent();
+    protected void rent()
+    {
+        int availableTools = business.getNumTools();
+        int numToolsToRent;
+        ArrayList<int> toolsToRent = new ArrayList<int>();
+
+        int daysToRent = ThreadLocalRandom.current().nextInt(minDays, maxDays + 1);
+
+        if (availableTools >= maxTools)
+        {
+            numToolsToRent = ThreadLocalRandom.current().nextInt(1, maxTools + 1);
+        }
+        else
+        {
+            numToolsToRent = ThreadLocalRandom.current().nextInt(1, availableTools + 1);
+        }
+
+        for(int i = 0; i < numToolsToRent; i++)
+        {
+            toolsToRent.add(ThreadLocalRandom.current().nextInt(0, availableTools));
+        }
+
+        HashSet hs = new HashSet();
+
+        while(hs.size() < numToolsToRent)
+        {
+
+            int num = (int)(Math.random()*availableTools);
+
+            hs.add(num);
+
+        }
+
+        Iterator it = hs.iterator();
+
+        while(it.hasNext())
+        {
+
+            toolsToRent.add(it.next());
+
+        }
+
+        store.rent(toolsToRent, daysToRent)
+    }
 
     protected void returnTools(Rental returnRental)
     {

@@ -1,8 +1,14 @@
+import java.util.concurrent.ThreadLocalRandom;
+import java.math.*;
+import java.util.*;
+
 public class CasualCustomer extends Customer
 {
-
-    protected void rent()
+    public CasualCustomer()
     {
-
+        maxTools = 2;
+        minDays = 1;
+        maxDays = 2;
     }
+
 }
