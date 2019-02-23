@@ -15,6 +15,8 @@ class Simulation {
 			customers.add("Customer" + (i+1));
 		}
 		
+		store.setup();
+		
 		System.out.println(customers);
 		return(true);
 	}
