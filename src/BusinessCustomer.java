@@ -1,10 +1,11 @@
 public class BusinessCustomer extends Customer
 {
-    public CasualCustomer()
+    public BusinessCustomer()
     {
-        maxTools = 2;
-        minDays = 1;
-        maxDays = 2;
+        maxTools = 3;
+        minTools = 3
+        minDays = 7;
+        maxDays = 7;
     }
 
 }
