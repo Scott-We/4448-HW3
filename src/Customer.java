@@ -4,9 +4,11 @@ public abstract class Customer
     protected List<Rental> Rentals;
     protected int numToolsRented;
 
-    public void Customer()
+    public Customer(Store Business)
     {
         Rentals = new ArrayList<Rental>();
+        this.Business = Business;
+        numToolsRented = 0;
     }
 
     public void update(int time, boolean morning)
