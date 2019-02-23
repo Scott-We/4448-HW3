@@ -1,14 +1,12 @@
 import java.util.ArrayList;
 
 public class Rental {
-	private ArrayList<Tool> tools;
+	private ArrayList<Tool> tools = new ArrayList<Tool>();
 	int rentDate, returnDate;
 
 	public Rental(int _rentDate, int _returnDate) {
 		rentDate = _rentDate;
 		returnDate = _returnDate;
-
-		tools = new ArrayList<Tool>();
 	}
 
 	public void addTool(Tool t) {
@@ -17,5 +15,9 @@ public class Rental {
 
 	public boolean isDue(int date) {
 		return date >= returnDate;
+	}
+
+	public ArrayList<Tool> getTools() {
+		return tools;
 	}
 }

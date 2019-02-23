@@ -4,6 +4,6 @@ public class PlumbingTool extends Tool {
 	}
 
 	public int getPrice() {
-		return 100;
+		return 15;
 	}
 }
