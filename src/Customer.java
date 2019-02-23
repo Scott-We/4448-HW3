@@ -1,0 +1,41 @@
+public abstract class Customer
+{
+    protected Store Business;
+    protected List<Rental> Rentals;
+    protected int numToolsRented;
+
+    public Customer()
+    {
+        Rentals = new ArrayList<Rental>();
+    }
+
+    public update(int time, boolean morning)
+    {
+        if(morning)
+        {
+            for(int i = 0; i < Rentals.size(); i++)
+            {
+                if(Rentals.get(i).isDue(time))
+                {
+                    returnTools(Rentals.get(i));
+                }
+            }
+        }
+        else
+        {
+            if(numToolsRented < 3 && Business.getNumTools() > 0)
+            {
+                rent();
+            }
+        }
+    }
+
+    protected rent();
+
+    protected returnTools(Rental rent)
+    {
+        Business.returnTools(rent);
+        numToolsRented -= rent.numTools();
+        Rentals.remove(rent);
+    }
+}
