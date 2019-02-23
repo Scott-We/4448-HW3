@@ -1,13 +1,13 @@
 public abstract class Customer
 {
-    protected Store Business;
-    protected List<Rental> Rentals;
+    protected Store business;
+    protected ArrayList<Rental> rentals;
     protected int numToolsRented;
 
-    public Customer(Store Business)
+    public Customer(Store business)
     {
-        Rentals = new ArrayList<Rental>();
-        this.Business = Business;
+        rentals = new ArrayList<Rental>();
+        this.business = business;
         numToolsRented = 0;
     }
 
@@ -15,9 +15,9 @@ public abstract class Customer
     {
         if(morning)
         {
-            for(int i = 0; i < Rentals.size(); i++)
+            for(int i = 0; i < rentals.size(); i++)
             {
-                if(Rentals.get(i).isDue(time))
+                if(rentals.get(i).isDue(time))
                 {
                     returnTools(Rentals.get(i));
                 }
@@ -34,10 +34,10 @@ public abstract class Customer
 
     protected void rent();
 
-    protected void returnTools(Rental rent)
+    protected void returnTools(Rental returnRental)
     {
-        Business.returnTools(rent);
+        business.returnTools(returnRental);
         numToolsRented -= rent.numTools();
-        Rentals.remove(rent);
+        rentals.remove(returnRental);
     }
 }
