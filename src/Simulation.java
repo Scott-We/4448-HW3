@@ -48,9 +48,9 @@ class Simulation {
 				customers.get(c).update(i, false);
 			}
 			
-			System.out.println("Today is day: " + i);
 		}
 		
+		store.printSummary();
 		
 		return(true);
 	}

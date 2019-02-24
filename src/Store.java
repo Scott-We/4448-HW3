@@ -79,4 +79,26 @@ class Store {
 		tools.addAll(r.getTools());
 		numTools += r.getTools().size();
 	}
+	
+	void printSummary(){
+		System.out.println("There are " + tools.size() + " tools in the store.");
+		if(numTools >0) {
+			System.out.print("The tools are: [" + tools.get(1).getID());
+		}
+		if(numTools > 1){
+			for(int i = 1; i < numTools; i++){
+				System.out.print(", " + tools.get(i).getID());
+			}
+		}if(numTools >0) {
+			System.out.println("].");
+		}
+		
+		System.out.println("The store made $" + profit + " over the 35 days");
+		
+		System.out.println("=====================================================");
+		System.out.println("");
+		
+		System.out.println();
+		
+	}
 }
