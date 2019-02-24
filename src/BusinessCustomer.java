@@ -22,8 +22,8 @@ public class BusinessCustomer extends Customer
         {
             toolsToRent.add(business.getAvailableTools().get(toolIndices[i]));
         }
-
-        business.rent(toolsToRent, minDays);
+    
+        rentals.add(business.rent(toolsToRent, minDays, name));
     }
 
 }
