@@ -2,9 +2,9 @@ import java.util.*;
 
 public class RegularCustomer extends Customer
 {
-    public RegularCustomer(Store business)
+    public RegularCustomer(Store business, String _name)
     {
-        super(business);
+        super(business, _name);
         maxTools = 3;
         minTools = 1;
         minDays = 3;
