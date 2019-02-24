@@ -70,10 +70,13 @@ class Store {
 		profit += cost;
 		rentals.add(r);
 		
+		numTools -= toRent.size();
+		
 		return(r);
 	}
 	
 	void returnTools(Rental r){
 		tools.addAll(r.getTools());
+		numTools += r.getTools().size();
 	}
 }
