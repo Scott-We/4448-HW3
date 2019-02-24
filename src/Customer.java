@@ -33,7 +33,7 @@ public abstract class Customer
         }
         else
         {
-            if(numToolsRented < 3 && business.getNumTools() > minTools)
+            if(numToolsRented < 3 && business.getNumTools() >= minTools)
             {
                 rent();
             }
