@@ -98,7 +98,7 @@ class Store {
 		
 		System.out.println("=====================================================");
 		System.out.println();
-		System.out.println("Completed rentals");
+		System.out.println("Completed rentals:");
 		
 		for(Rental r: rentals){
 			if(r.isDue(day)){
@@ -107,7 +107,7 @@ class Store {
 		}
 		
 		System.out.println();
-		System.out.println("Ongoing rentals");
+		System.out.println("Ongoing rentals:");
 		
 		for(Rental r: rentals){
 			if(!r.isDue(day)){
