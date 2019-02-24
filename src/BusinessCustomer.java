@@ -2,9 +2,9 @@ import java.util.*;
 
 public class BusinessCustomer extends Customer
 {
-    public BusinessCustomer(Store business)
+    public BusinessCustomer(Store business, String _name)
     {
-        super(business);
+        super(business, _name);
         maxTools = 3;
         minTools = 3;
         minDays = 7;
