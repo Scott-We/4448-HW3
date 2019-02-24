@@ -4,14 +4,14 @@ import java.util.ArrayList;
 class Store {
 	private int day;
 	private int numTools;
-	private int proffit;
+	private int profit;
 	private ArrayList<Tool> tools;
 	private ArrayList<Rental> rentals;
 	
 	Store(){
 		day = 0;
 		numTools = 20;
-		proffit = 0;
+		profit = 0;
 		tools = new ArrayList<>();
 		rentals = new ArrayList<>();
 	}
@@ -61,11 +61,11 @@ class Store {
 		
 		for(Tool t : toRent){
 			r.addTool(t);
-			cost = cost+t.getPrice();
+			cost += t.getPrice()*numDays;
 			tools.remove(t);
 		}
 		
-		proffit += cost;
+		profit += cost;
 		rentals.add(r);
 		
 		return(r);
