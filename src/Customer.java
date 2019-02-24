@@ -23,16 +23,19 @@ public abstract class Customer
     {
         if(morning)
         {
+            System.out.println("Morning " + rentals.size());
             for(int i = 0; i < rentals.size(); i++)
             {
                 if(rentals.get(i).isDue(time))
                 {
-                    returnTools(rentals.get(i));
+                    System.out.println("Returning tools");
+                    this.returnTools(rentals.get(i));
                 }
             }
         }
         else
         {
+            System.out.println("evening");
             if(numToolsRented < 3 && business.getNumTools() >= minTools)
             {
                 rent();
@@ -63,7 +66,7 @@ public abstract class Customer
             toolsToRent.add(business.getAvailableTools().get(toolIndices[i]));
         }
     
-        business.rent(toolsToRent, daysToRent);
+        rentals.add(business.rent(toolsToRent, daysToRent));
     }
 
     protected void returnTools(Rental returnRental)
