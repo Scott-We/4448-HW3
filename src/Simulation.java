@@ -11,6 +11,9 @@ class Simulation {
 	}
 	boolean setup(){
 		int numCustomers = 10;
+		int numBusi = 0;
+		int numCasu = 0;
+		int numRegu = 0;
 		
 		Random r = new Random();
 		customers.add(new CasualCustomer(store));
@@ -19,10 +22,11 @@ class Simulation {
 			System.out.println(type);
 			switch (type){
 				case 0:
-					customers.add(new BusinessCustomer(store));
+					numBusi += 1;
+					customers.add(new BusinessCustomer(store, "Busi customer " + numBusi));
 					break;
 				case 1:
-					customers.add(new CasualCustomer(store));
+					customers.add(new CasualCustomer(store, "Casu customer " + numCasu));
 					break;
 				case 2:
 					customers.add(new RegularCustomer(store));

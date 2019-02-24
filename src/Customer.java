@@ -11,9 +11,11 @@ public abstract class Customer
     protected int minTools;
     protected int minDays;
     protected int maxDays;
+    protected String name;
 
-    public Customer(Store business)
+    public Customer(Store business, String _name)
     {
+    	this.name = _name;
         rentals = new ArrayList<Rental>();
         this.business = business;
         numToolsRented = 0;
@@ -23,19 +25,16 @@ public abstract class Customer
     {
         if(morning)
         {
-            System.out.println("Morning " + rentals.size());
             for(int i = 0; i < rentals.size(); i++)
             {
                 if(rentals.get(i).isDue(time))
                 {
-                    System.out.println("Returning tools");
                     this.returnTools(rentals.get(i));
                 }
             }
         }
         else
         {
-            System.out.println("evening");
             if(numToolsRented < 3 && business.getNumTools() >= minTools)
             {
                 rent();
@@ -71,7 +70,7 @@ public abstract class Customer
             toolsToRent.add(business.getAvailableTools().get(toolIndices[i]));
         }
     
-        rentals.add(business.rent(toolsToRent, daysToRent));
+        rentals.add(business.rent(toolsToRent, daysToRent, name));
     }
 
     protected void returnTools(Rental returnRental)
