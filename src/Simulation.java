@@ -16,7 +16,7 @@ class Simulation {
 		int numRegu = 0;
 		
 		Random r = new Random();
-		for(int i = 1; i < numCustomers; i++){
+		for(int i = 0; i < numCustomers; i++){
 			int type = r.nextInt(3);
 			System.out.println(type);
 			switch (type){

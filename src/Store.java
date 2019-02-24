@@ -53,7 +53,7 @@ class Store {
 		return(tools);
 	}
 	
-	Rental rent(ArrayList<Tool> toRent, int numDays, String renter){
+	Rental rent(ArrayList<Tool> toRent, int numDays, String renter) {
 		
 		Rental r = new Rental(day, day + numDays, renter);
 		
@@ -65,7 +65,7 @@ class Store {
 			tools.remove(t);
 		}
 		
-		System.out.println("Rented " + toRent.size() + " tools for $" + cost);
+		//System.out.println("Rented " + toRent.size() + " tools for $" + cost);
 		
 		profit += cost;
 		rentals.add(r);
@@ -78,7 +78,7 @@ class Store {
 	void returnTools(Rental r){
 		tools.addAll(r.getTools());
 		numTools += r.getTools().size();
-		System.out.println(r.getTools().size() + " tools returned: " + numTools + " remain.");
+		//System.out.println(r.getTools().size() + " tools returned: " + numTools + " remain.");
 	}
 	
 	void printSummary(){
