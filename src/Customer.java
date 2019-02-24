@@ -57,15 +57,10 @@ public abstract class Customer
             numToolsToRent = ThreadLocalRandom.current().nextInt(minTools, availableTools + 1);
         }
 
-        Integer[] arr = new Integer[availableTools];
+        int[] toolIndices = sampleRandomNumbersWithoutRepetition(0, availableTools, numToolsToRent);
         for(int i = 0; i < numToolsToRent; i++)
         {
-            arr[i] = i;
-        }
-        Collections.shuffle(Arrays.asList(arr));
-        for(int i = 0; i < numToolsToRent; i++)
-        {
-            toolsToRent.add(business.getAvailableTools().get(arr[i]));
+            toolsToRent.add(business.getAvailableTools().get(toolIndices[i]));
         }
     
         business.rent(toolsToRent, daysToRent);
@@ -76,5 +71,22 @@ public abstract class Customer
         business.returnTools(returnRental);
         numToolsRented -= returnRental.numTools();
         rentals.remove(returnRental);
+    }
+
+    protected static int[] sampleRandomNumbersWithoutRepetition(int start, int end, int count) {
+        Random rng = new Random();
+
+        int[] result = new int[count];
+        int cur = 0;
+        int remaining = end - start;
+        for (int i = start; i < end && count > 0; i++) {
+            double probability = rng.nextDouble();
+            if (probability < ((double) count) / (double) remaining) {
+                count--;
+                result[cur++] = i;
+            }
+            remaining--;
+        }
+        return result;
     }
 }

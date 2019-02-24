@@ -13,18 +13,14 @@ public class BusinessCustomer extends Customer
 
     protected void rent()
     {
+        int numToolsToRent = maxTools;
         int availableTools = business.getNumTools();
         ArrayList<Tool> toolsToRent = new ArrayList<Tool>();
 
-        Integer[] arr = new Integer[availableTools];
-        for(int i = 0; i < minTools; i++)
+        int[] toolIndices = sampleRandomNumbersWithoutRepetition(0, availableTools, numToolsToRent);
+        for(int i = 0; i < numToolsToRent; i++)
         {
-            arr[i] = i;
-        }
-        Collections.shuffle(Arrays.asList(arr));
-        for(int i = 0; i < minTools; i++)
-        {
-            toolsToRent.add(business.getAvailableTools().get(arr[i]));
+            toolsToRent.add(business.getAvailableTools().get(toolIndices[i]));
         }
 
         business.rent(toolsToRent, minDays);
