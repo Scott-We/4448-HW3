@@ -53,9 +53,9 @@ class Store {
 		return(tools);
 	}
 	
-	Rental rent(ArrayList<Tool> toRent, int numDays){
+	Rental rent(ArrayList<Tool> toRent, int numDays, String renter){
 		
-		Rental r = new Rental(day, day + numDays);
+		Rental r = new Rental(day, day + numDays, renter);
 		
 		int cost = 0;
 		
@@ -78,6 +78,7 @@ class Store {
 	void returnTools(Rental r){
 		tools.addAll(r.getTools());
 		numTools += r.getTools().size();
+		System.out.println(r.getTools().size() + " tools returned: " + numTools + " remain.");
 	}
 	
 	void printSummary(){
@@ -96,9 +97,23 @@ class Store {
 		System.out.println("The store made $" + profit + " over the 35 days");
 		
 		System.out.println("=====================================================");
-		System.out.println("");
+		System.out.println();
+		System.out.println("Completed rentals");
+		
+		for(Rental r: rentals){
+			if(r.isDue(day)){
+				System.out.println(r);
+			}
+		}
 		
 		System.out.println();
+		System.out.println("Ongoing rentals");
+		
+		for(Rental r: rentals){
+			if(!r.isDue(day)){
+				System.out.println(r);
+			}
+		}
 		
 	}
 }

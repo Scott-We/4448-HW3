@@ -16,6 +16,7 @@ class Simulation {
 		customers.add(new CasualCustomer(store));
 		for(int i = 1; i < numCustomers; i++){
 			int type = r.nextInt(3);
+			System.out.println(type);
 			switch (type){
 				case 0:
 					customers.add(new BusinessCustomer(store));
