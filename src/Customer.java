@@ -65,7 +65,7 @@ public abstract class Customer
         Collections.shuffle(Arrays.asList(arr));
         for(int i = 0; i < numToolsToRent; i++)
         {
-            toolsToRent.add(business.get(arr[i]));
+            toolsToRent.add(business.getAvailableTools().get(arr[i]));
         }
     
         business.rent(toolsToRent, daysToRent);
