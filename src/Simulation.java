@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 class Simulation {
 	private ArrayList<String> customers;
@@ -10,6 +11,8 @@ class Simulation {
 	}
 	boolean setup(){
 		int numCustomers = 10;
+		
+		Random r = new Random();
 		
 		for(int i = 0; i < numCustomers; i++){
 			customers.add("Customer" + (i+1));
