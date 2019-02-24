@@ -13,8 +13,8 @@ class Simulation {
 		int numCustomers = 10;
 		
 		Random r = new Random();
-		
-		for(int i = 0; i < numCustomers; i++){
+		customers.add(new CasualCustomer(store));
+		for(int i = 1; i < numCustomers; i++){
 			int type = r.nextInt(3);
 			switch (type){
 				case 0:
