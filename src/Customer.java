@@ -74,7 +74,7 @@ public abstract class Customer
     protected void returnTools(Rental returnRental)
     {
         business.returnTools(returnRental);
-        numToolsRented -= rent.numTools();
+        numToolsRented -= returnRental.numTools();
         rentals.remove(returnRental);
     }
 }

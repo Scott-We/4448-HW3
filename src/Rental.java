@@ -20,4 +20,8 @@ public class Rental {
 	public ArrayList<Tool> getTools() {
 		return tools;
 	}
+
+	public int numTools() {
+		return tools.size();
+	}
 }

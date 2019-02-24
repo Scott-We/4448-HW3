@@ -1,7 +1,8 @@
 public class RegularCustomer extends Customer
 {
-    public RegularCustomer()
+    public RegularCustomer(Store business)
     {
+        super(business);
         maxTools = 1;
         minTools = 3;
         minDays = 3;

@@ -18,13 +18,13 @@ class Simulation {
 			int type = r.nextInt(3);
 			switch (type){
 				case 0:
-					customers.add(new BusinessCustomer());
+					customers.add(new BusinessCustomer(store));
 					break;
 				case 1:
-					customers.add(new CasualCustomer());
+					customers.add(new CasualCustomer(store));
 					break;
 				case 2:
-					customers.add(new RegularCustomer());
+					customers.add(new RegularCustomer(store));
 					break;
 			}
 			
@@ -41,14 +41,14 @@ class Simulation {
 			store.update(i);
 			
 			for(int c = 0; c < customers.size(); c++){
-				//customers.get(c).update(i, true);
+				customers.get(c).update(i, true);
 			}
 			
 			for(int c = 0; c < customers.size(); c++){
-				//customers.get(c).update(i, false);
+				customers.get(c).update(i, false);
 			}
 			
-			//System.out.println("Today is day: " + i);
+			System.out.println("Today is day: " + i);
 		}
 		
 		
