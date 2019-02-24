@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class RegularCustomer extends Customer
 {
     public RegularCustomer(Store business)
