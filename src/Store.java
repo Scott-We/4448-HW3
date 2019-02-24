@@ -65,6 +65,8 @@ class Store {
 			tools.remove(t);
 		}
 		
+		System.out.println("Rented " + toRent.size() + " tools for $" + cost);
+		
 		profit += cost;
 		rentals.add(r);
 		
@@ -72,9 +74,6 @@ class Store {
 	}
 	
 	void returnTools(Rental r){
-		ArrayList<Tool> returned = r.getTools();
-		for(Tool t : returned){
-			tools.add(t);
-		}
+		tools.addAll(r.getTools());
 	}
 }

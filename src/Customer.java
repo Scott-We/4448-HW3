@@ -67,8 +67,8 @@ public abstract class Customer
         {
             toolsToRent.add(business.get(arr[i]));
         }
-
-        store.rent(toolsToRent, daysToRent);
+    
+        business.rent(toolsToRent, daysToRent);
     }
 
     protected void returnTools(Rental returnRental)
