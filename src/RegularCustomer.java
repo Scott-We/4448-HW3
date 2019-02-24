@@ -1,6 +1,6 @@
-public class BusinessCustomer extends Customer
+public class RegularCustomer extends Customer
 {
-    public BusinessCustomer()
+    public RegularCustomer()
     {
         maxTools = 1;
         minTools = 3
