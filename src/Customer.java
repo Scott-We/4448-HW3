@@ -63,6 +63,11 @@ public abstract class Customer
         {
             numToolsToRent -= numToolsRented;
         }
+        if(numToolsToRent == 0)
+        {
+            System.out.println("Shiterdoodle");
+        }
+
 
         int[] toolIndices = sampleRandomNumbersWithoutRepetition(0, availableTools, numToolsToRent);
         for(int i = 0; i < numToolsToRent; i++)
