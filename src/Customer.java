@@ -1,5 +1,4 @@
 import java.util.concurrent.ThreadLocalRandom;
-import java.math.*;
 import java.util.*;
 
 public abstract class Customer
@@ -45,7 +44,7 @@ public abstract class Customer
     {
         int availableTools = business.getNumTools();
         int numToolsToRent;
-        ArrayList<Integer> toolsToRent = new ArrayList<Integer>();
+        ArrayList<Tool> toolsToRent = new ArrayList<Tool>();
 
         int daysToRent = ThreadLocalRandom.current().nextInt(minDays, maxDays + 1);
 
@@ -58,29 +57,15 @@ public abstract class Customer
             numToolsToRent = ThreadLocalRandom.current().nextInt(minTools, availableTools + 1);
         }
 
+        Integer[] arr = new Integer[availableTools];
         for(int i = 0; i < numToolsToRent; i++)
         {
-            toolsToRent.add(ThreadLocalRandom.current().nextInt(0, availableTools));
+            arr[i] = i;
         }
-
-        HashSet hs = new HashSet();
-
-        while(hs.size() < numToolsToRent)
+        Collections.shuffle(Arrays.asList(arr));
+        for(int i = 0; i < numToolsToRent; i++)
         {
-
-            int num = (int)(Math.random()*availableTools);
-
-            hs.add(num);
-
-        }
-
-        Iterator it = hs.iterator();
-
-        while(it.hasNext())
-        {
-
-            toolsToRent.add(it.next());
-
+            toolsToRent.add(business.get(arr[i]));
         }
 
         store.rent(toolsToRent, daysToRent);
