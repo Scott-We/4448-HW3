@@ -22,14 +22,16 @@ class Simulation {
 			System.out.println(type);
 			switch (type){
 				case 0:
-					numBusi += 1;
+					numBusi ++;
 					customers.add(new BusinessCustomer(store, "Busi customer " + numBusi));
 					break;
 				case 1:
+					numCasu ++;
 					customers.add(new CasualCustomer(store, "Casu customer " + numCasu));
 					break;
 				case 2:
-					customers.add(new RegularCustomer(store));
+					numRegu ++;
+					customers.add(new RegularCustomer(store, "Regu customer " + numRegu));
 					break;
 			}
 			
