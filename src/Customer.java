@@ -45,7 +45,7 @@ public abstract class Customer
     {
         int availableTools = business.getNumTools();
         int numToolsToRent;
-        ArrayList<int> toolsToRent = new ArrayList<int>();
+        ArrayList<Integer> toolsToRent = new ArrayList<Integer>();
 
         int daysToRent = ThreadLocalRandom.current().nextInt(minDays, maxDays + 1);
 
@@ -83,7 +83,7 @@ public abstract class Customer
 
         }
 
-        store.rent(toolsToRent, daysToRent)
+        store.rent(toolsToRent, daysToRent);
     }
 
     protected void returnTools(Rental returnRental)
