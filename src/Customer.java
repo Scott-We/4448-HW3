@@ -82,8 +82,8 @@ public abstract class Customer
             toolsToRent.add(it.next());
 
         }
-
-        store.rent(toolsToRent, daysToRent);
+    
+        business.rent(toolsToRent, daysToRent);
     }
 
     protected void returnTools(Rental returnRental)

@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 class Simulation {
-	private ArrayList<String> customers;
+	private ArrayList<Customer> customers;
 	private Store store;
 	
 	Simulation(){
@@ -15,7 +15,20 @@ class Simulation {
 		Random r = new Random();
 		
 		for(int i = 0; i < numCustomers; i++){
-			customers.add("Customer" + (i+1));
+			int type = r.nextInt(3);
+			switch (type){
+				case 0:
+					customers.add(new BusinessCustomer());
+					break;
+				case 1:
+					customers.add(new CasualCustomer());
+					break;
+				case 2:
+					customers.add(new RegularCustomer());
+					break;
+			}
+			
+			
 		}
 		
 		store.setup();
@@ -37,6 +50,8 @@ class Simulation {
 			
 			//System.out.println("Today is day: " + i);
 		}
+		
+		
 		return(true);
 	}
 }
