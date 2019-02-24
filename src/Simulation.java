@@ -18,7 +18,6 @@ class Simulation {
 		Random r = new Random();
 		for(int i = 0; i < numCustomers; i++){
 			int type = r.nextInt(3);
-			System.out.println(type);
 			switch (type){
 				case 0:
 					numBusi ++;

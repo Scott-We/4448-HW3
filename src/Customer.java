@@ -61,13 +61,8 @@ public abstract class Customer
 
         if (numToolsToRent + numToolsRented > 3)
         {
-            numToolsToRent -= numToolsRented;
+            numToolsToRent -= 3 - numToolsRented;
         }
-        if(numToolsToRent == 0)
-        {
-            System.out.println("Shiterdoodle");
-        }
-
 
         int[] toolIndices = sampleRandomNumbersWithoutRepetition(0, availableTools, numToolsToRent);
         for(int i = 0; i < numToolsToRent; i++)
