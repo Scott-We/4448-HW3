@@ -71,6 +71,7 @@ public abstract class Customer
         }
     
         rentals.add(business.rent(toolsToRent, daysToRent, name));
+        numToolsRented += numToolsToRent;
     }
 
     protected void returnTools(Rental returnRental)

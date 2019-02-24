@@ -24,6 +24,7 @@ public class BusinessCustomer extends Customer
         }
     
         rentals.add(business.rent(toolsToRent, minDays, name));
+        numToolsRented += numToolsToRent;
     }
 
 }
