@@ -60,6 +60,11 @@ public abstract class Customer
             numToolsToRent = ThreadLocalRandom.current().nextInt(minTools, availableTools + 1);
         }
 
+        if (numToolsToRent + numToolsRented > 3)
+        {
+            numToolsToRent -= numToolsRented;
+        }
+
         int[] toolIndices = sampleRandomNumbersWithoutRepetition(0, availableTools, numToolsToRent);
         for(int i = 0; i < numToolsToRent; i++)
         {
