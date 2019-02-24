@@ -53,7 +53,7 @@ class Store {
 		return(tools);
 	}
 	
-	Rental rent(ArrayList<Tool> toRent, int numDays, String renter){
+	Rental rent(ArrayList<Tool> toRent, int numDays, String renter) {
 		
 		Rental r = new Rental(day, day + numDays, renter);
 		
