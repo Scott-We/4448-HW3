@@ -21,15 +21,15 @@ class Simulation {
 			switch (type){
 				case 0:
 					numBusi ++;
-					customers.add(new BusinessCustomer(store, "Busi customer " + numBusi));
+					customers.add(new BusinessCustomer(store, "Business customer " + numBusi));
 					break;
 				case 1:
 					numCasu ++;
-					customers.add(new CasualCustomer(store, "Casu customer " + numCasu));
+					customers.add(new CasualCustomer(store, "Casual customer " + numCasu));
 					break;
 				case 2:
 					numRegu ++;
-					customers.add(new RegularCustomer(store, "Regu customer " + numRegu));
+					customers.add(new RegularCustomer(store, "Regular customer " + numRegu));
 					break;
 			}
 			
@@ -45,12 +45,12 @@ class Simulation {
 		for(int i = 1; i <= numDays; i++){
 			store.update(i);
 			
-			for(int c = 0; c < customers.size(); c++){
-				customers.get(c).update(i, true);
+			for(Customer c : customers){
+				c.update(i, true);
 			}
 			
-			for(int c = 0; c < customers.size(); c++){
-				customers.get(c).update(i, false);
+			for(Customer c : customers){
+				c.update(i, false);
 			}
 			
 		}

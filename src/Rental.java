@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Rental {
-	private ArrayList<Tool> tools = new ArrayList<Tool>();
+	private ArrayList<Tool> tools = new ArrayList<>();
 	int rentDate, returnDate;
 	String renter;
 
@@ -28,12 +28,12 @@ public class Rental {
 	}
 
 	public String toString() {
-		String result = renter + " rented [";
+		String result = renter + " rented [ ";
 		result += tools.get(0).getID();
 		for (int i = 1; i < tools.size(); i++) {
-			result += "," + tools.get(i).getID();
+			result += ", " + tools.get(i).getID();
 		}
-		result += "] from " + rentDate + " to " + returnDate;
+		result += " ] from day " + rentDate + " to day " + returnDate + ".";
 		return result;
 	}
 }
