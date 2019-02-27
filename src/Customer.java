@@ -29,6 +29,18 @@ public abstract class Customer
             {
                 if(rentals.get(i).isDue(time))
                 {
+                    if(rentals.get(i).returnDate < time){
+                        System.out.println(rentals.get(i) + " is over due");
+                    }else{
+                        //System.out.println(rentals.get(i) + " is due");
+                    }
+                }
+            }
+            for(int i = rentals.size()-1; i >= 0; i--)
+            //for(int i = 0; i < rentals.size(); i++)
+            {
+                if(rentals.get(i).isDue(time))
+                {
                     this.returnTools(rentals.get(i));
                 }
             }
@@ -37,6 +49,7 @@ public abstract class Customer
         {
             if(numToolsRented < 3 && business.getNumTools() >= minTools)
             {
+                //System.out.println(name + " is renting on day " + time);
                 rent();
             }
         }

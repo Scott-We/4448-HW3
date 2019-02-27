@@ -74,6 +74,7 @@ class Store {
 		}
 		
 		//System.out.println("Rented " + toRent.size() + " tools for $" + cost);
+		//System.out.println("Rented tools from " + day + ":" + (day + numDays) + ".");
 		
 		profit += cost;
 		rentals.add(r);
@@ -93,62 +94,62 @@ class Store {
 		
 		System.out.println("There are " + tools.size() + " tools in the store.");
 		if(numTools >0) {
-			System.out.print("The tool(s) are: [" + tools.get(0).getID());
+			//System.out.print("The tool(s) are: [" + tools.get(0).getID());
 		}
 		if(numTools > 1){
 			for(int i = 1; i < numTools; i++){
-				System.out.print(", " + tools.get(i).getID());
+				//System.out.print(", " + tools.get(i).getID());
 			}
 		}if(numTools >0) {
-			System.out.println("].");
+			//System.out.println("].");
 		}
 		
-		System.out.println("The store made $" + profit + " over the 35 days");
+		//System.out.println("The store made $" + profit + " over the 35 days");
 		
-		System.out.println("=====================================================");
-		System.out.println();
-		System.out.println("Completed rentals:");
+		//System.out.println("=====================================================");
+		//System.out.println();
+		//System.out.println("Completed rentals:");
 		
 		for(Rental r: rentals){
 			if(r.isDue(day)){
-				System.out.println(r);
+				//System.out.println(r);
 			}
 		}
 		
-		System.out.println();
-		System.out.println("Ongoing rentals:");
+		//System.out.println();
+		//System.out.println("Ongoing rentals:");
 		
 		int toolsOut = 0;
 		
 		for(Rental r: rentals){
 			if(!r.isDue(day)){
-				System.out.println(r);
+				//System.out.println(r);
 				toolsOut += r.numTools();
 			}
 		}
 		
-		System.out.println();
+		//System.out.println();
 		
 		System.out.println("Number of tools currently out: " + toolsOut);
 		
-		System.out.println();
+		//System.out.println();
 		
 		int toolI = 0;
 		
 		for(Tool t: masterTools){
 			if(toolI == 4){
-				System.out.println();
+				//System.out.println();
 				toolI = 0;
 			}
 			boolean found = false;
 			if(tools.contains(t)){
-				System.out.println("Tool: " + t.getID() + " is in the store");
+				//System.out.println("Tool: " + t.getID() + " is in the store");
 				found = true;
 			}
 			for(Rental r: rentals){
 				if(!r.isDue(day)){
 					if(r.getTools().contains(t)){
-						System.out.println("Tool: " + t.getID() + " is with " + r.renter);
+						//System.out.println("Tool: " + t.getID() + " is with " + r.renter);
 						found = true;
 					}
 				}
@@ -160,7 +161,7 @@ class Store {
 						lastScene = r;
 					}
 				}
-				System.out.println("Tool: " + t.getID() + " was rented: " + lastScene.rentDate + ":" + lastScene.returnDate + " and rented to customer " + lastScene.renter);
+				System.out.println("Tool: " + t.getID() + " was rented: " + lastScene.rentDate + ":" + lastScene.returnDate + " to " + lastScene.renter);
 				
 			}
 			toolI++;

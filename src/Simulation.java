@@ -43,6 +43,7 @@ class Simulation {
 	
 	boolean run(int numDays){
 		for(int i = 1; i <= numDays; i++){
+			
 			store.update(i);
 			
 			for(Customer c : customers){
