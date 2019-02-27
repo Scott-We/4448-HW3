@@ -94,41 +94,41 @@ class Store {
 		
 		System.out.println("There are " + tools.size() + " tools in the store.");
 		if(numTools >0) {
-			//System.out.print("The tool(s) are: [" + tools.get(0).getID());
+			System.out.print("The tool(s) are: [" + tools.get(0).getID());
 		}
 		if(numTools > 1){
 			for(int i = 1; i < numTools; i++){
-				//System.out.print(", " + tools.get(i).getID());
+				System.out.print(", " + tools.get(i).getID());
 			}
 		}if(numTools >0) {
-			//System.out.println("].");
+			System.out.println("].");
 		}
 		
-		//System.out.println("The store made $" + profit + " over the 35 days");
+		System.out.println("The store made $" + profit + " over the 35 days");
 		
-		//System.out.println("=====================================================");
-		//System.out.println();
-		//System.out.println("Completed rentals:");
+		System.out.println("=====================================================");
+		System.out.println();
+		System.out.println("Completed rentals:");
 		
 		for(Rental r: rentals){
 			if(r.isDue(day)){
-				//System.out.println(r);
+				System.out.println(r);
 			}
 		}
 		
-		//System.out.println();
-		//System.out.println("Ongoing rentals:");
+		System.out.println();
+		System.out.println("Ongoing rentals:");
 		
 		int toolsOut = 0;
 		
 		for(Rental r: rentals){
 			if(!r.isDue(day)){
-				//System.out.println(r);
+				System.out.println(r);
 				toolsOut += r.numTools();
 			}
 		}
 		
-		//System.out.println();
+		System.out.println();
 		
 		System.out.println("Number of tools currently out: " + toolsOut);
 		
@@ -161,7 +161,7 @@ class Store {
 						lastScene = r;
 					}
 				}
-				System.out.println("Tool: " + t.getID() + " was rented: " + lastScene.rentDate + ":" + lastScene.returnDate + " to " + lastScene.renter);
+				//System.out.println("Tool: " + t.getID() + " was rented: " + lastScene.rentDate + ":" + lastScene.returnDate + " to " + lastScene.renter);
 				
 			}
 			toolI++;
