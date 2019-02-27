@@ -6,7 +6,7 @@ class Store {
 	private int numTools;
 	private int profit;
 	private ArrayList<Tool> tools;
-	private ArrayList<Tool> masterTools;
+	private ArrayList<Tool> masterTools;    //a copy of the tool list for verification purposes
 	private ArrayList<Rental> rentals;
 	
 	Store(){
@@ -44,8 +44,6 @@ class Store {
 			tools.add(t);
 			masterTools.add(t);
 		}
-		
-		
 		return(true);
 	}
 	
@@ -73,9 +71,6 @@ class Store {
 			tools.remove(t);
 		}
 		
-		//System.out.println("Rented " + toRent.size() + " tools for $" + cost);
-		//System.out.println("Rented tools from " + day + ":" + (day + numDays) + ".");
-		
 		profit += cost;
 		rentals.add(r);
 		
@@ -87,7 +82,6 @@ class Store {
 	void returnTools(Rental r){
 		tools.addAll(r.getTools());
 		numTools += r.numTools();
-		//System.out.println(r.getTools().size() + " tools returned: " + numTools + " remain.");
 	}
 	
 	void printSummary(){
@@ -132,24 +126,28 @@ class Store {
 		
 		System.out.println("Number of tools currently out: " + toolsOut);
 		
-		//System.out.println();
+		
+		/*
+		Display the current location of each tool.
+		
+		System.out.println();
 		
 		int toolI = 0;
 		
 		for(Tool t: masterTools){
 			if(toolI == 4){
-				//System.out.println();
+				System.out.println();
 				toolI = 0;
 			}
 			boolean found = false;
 			if(tools.contains(t)){
-				//System.out.println("Tool: " + t.getID() + " is in the store");
+				System.out.println("Tool: " + t.getID() + " is in the store");
 				found = true;
 			}
 			for(Rental r: rentals){
 				if(!r.isDue(day)){
 					if(r.getTools().contains(t)){
-						//System.out.println("Tool: " + t.getID() + " is with " + r.renter);
+						System.out.println("Tool: " + t.getID() + " is with " + r.renter);
 						found = true;
 					}
 				}
@@ -161,12 +159,12 @@ class Store {
 						lastScene = r;
 					}
 				}
-				//System.out.println("Tool: " + t.getID() + " was rented: " + lastScene.rentDate + ":" + lastScene.returnDate + " to " + lastScene.renter);
+				System.out.println("Tool: " + t.getID() + " was rented: " + lastScene.rentDate + ":" + lastScene.returnDate + " to " + lastScene.renter);
 				
 			}
 			toolI++;
 			
 		}
-		
+		//*/
 	}
 }
