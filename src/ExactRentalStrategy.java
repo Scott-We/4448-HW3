@@ -1,3 +1,5 @@
+// A rental strategy which always returns the same number of tools
+// for the same number of days.
 public class ExactRentalStrategy implements RentalStrategy {
 	int numTools, numDays;
 

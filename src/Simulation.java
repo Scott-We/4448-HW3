@@ -5,11 +5,14 @@ class Simulation {
 	private ArrayList<Customer> customers;
 	private Store store;
 	
-	Simulation(){
+	Simulation() {
 		customers = new ArrayList<>();
 		store = new Store();
 	}
-	boolean setup(){
+
+	// Creates a store and 10 customers of random types.
+	// (Creation of the store is delegated to the store.)
+	void setup() {
 		int numCustomers = 10;
 		int numBusi = 0;
 		int numCasu = 0;
@@ -32,32 +35,21 @@ class Simulation {
 					customers.add(Customer.createRegularCustomer(store, numRegu));
 					break;
 			}
-			
-			
 		}
-		
 		store.setup();
-		
-		return(true);
 	}
-	
-	boolean run(int numDays){
+
+	// Calls update each morning and afternoon, then prints a summary when done.
+	void run(int numDays){
 		for(int i = 1; i <= numDays; i++){
-			
 			store.update(i);
-			
 			for(Customer c : customers){
 				c.update(i, true);
 			}
-			
 			for(Customer c : customers){
 				c.update(i, false);
 			}
-			
 		}
-		
 		store.printSummary();
-		
-		return(true);
 	}
 }

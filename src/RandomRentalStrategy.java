@@ -1,5 +1,7 @@
 import java.util.concurrent.ThreadLocalRandom;
 
+// A Rental Strategy which returns random choices from a predetermined
+// range of possible tools and days.
 public class RandomRentalStrategy implements RentalStrategy {
 	int minTools, maxTools;
 	int minDays, maxDays;

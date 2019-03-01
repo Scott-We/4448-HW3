@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Customer
 {
-    private Store business;
+    private Store store;
     private ArrayList<Rental> rentals;
     private int numToolsRented;
 
@@ -11,50 +11,44 @@ public class Customer
 
     private RentalStrategy rentalStrategy;
 
-    private Customer(Store business, String name, RentalStrategy strategy) {
+    private Customer(Store store, String name, RentalStrategy strategy) {
         this.name = name;
         rentals = new ArrayList<Rental>();
-        this.business = business;
+        this.store = store;
         numToolsRented = 0;
         this.rentalStrategy = strategy;
     }
 
-    public static Customer createCasualCustomer(Store business, int ID)
+    // Handles creation of Casual Customers. Generates a RandomRentalStrategy with the appropriate limits.
+    public static Customer createCasualCustomer(Store store, int ID)
     {
         RentalStrategy rs = new RandomRentalStrategy(1, 2, 1, 2);
         String name = "Casual Customer " + ID;
-        return new Customer(business, name, rs);
+        return new Customer(store, name, rs);
     }
-    public static Customer createRegularCustomer(Store business, int ID)
+
+    // Handles creation of Regular Customers. Generates a RanomRentalStrategy with the appropriate limits.
+    public static Customer createRegularCustomer(Store store, int ID)
     {
         RentalStrategy rs = new RandomRentalStrategy(1, 3, 3, 5);
         String name = "Regular Customer " + ID;
-        return new Customer(business, name, rs);
+        return new Customer(store, name, rs);
     }
-    public static Customer createBusinessCustomer(Store business, int ID)
+    // Handles creation of Business Customers. Generates an ExactRentalStrategy with the appropriate numbers.
+    public static Customer createBusinessCustomer(Store store, int ID)
     {
         RentalStrategy rs = new ExactRentalStrategy(3, 7);
         String name = "Business Customer " + ID;
-        return new Customer(business, name, rs);
+        return new Customer(store, name, rs);
     }
 
+    // In the mornings, return any rentals that are due.
+    // In the afternoon, make a rental with 1/3 probability.
     public void update(int time, boolean morning)
     {
         if(morning)
         {
-            for(int i = 0; i < rentals.size(); i++)
-            {
-                if(rentals.get(i).isDue(time))
-                {
-                    if(rentals.get(i).returnDate < time){
-                        System.out.println(rentals.get(i) + " is over due");
-                    }else{
-                        //System.out.println(rentals.get(i) + " is due");
-                    }
-                }
-            }
             for(int i = rentals.size()-1; i >= 0; i--)
-            //for(int i = 0; i < rentals.size(); i++)
             {
                 if(rentals.get(i).isDue(time))
                 {
@@ -70,9 +64,11 @@ public class Customer
         }
     }
 
+    // Use the RentalStrategy to choose number of tools and how long to rent.
+    // If possible, choose a random list of tools and rent them.
     private void rent()
     {
-        int availableTools = business.getNumTools();
+        int availableTools = store.getNumTools();
         ArrayList<Tool> toolsToRent = new ArrayList<Tool>();
 
         int daysToRent = rentalStrategy.numDaysToRent();
@@ -82,21 +78,25 @@ public class Customer
             int[] toolIndices = sampleRandom(0, availableTools, numToolsToRent);
 
             for (int i = 0; i < numToolsToRent; i++) {
-                toolsToRent.add(business.getAvailableTools().get(toolIndices[i]));
+                toolsToRent.add(store.getAvailableTools().get(toolIndices[i]));
             }
 
-            rentals.add(business.rent(toolsToRent, daysToRent, name));
+            rentals.add(store.rent(toolsToRent, daysToRent, name));
             numToolsRented += numToolsToRent;
         }
     }
 
+    // Returns a rental.
     private void returnTools(Rental returnRental)
     {
-        business.returnTools(returnRental);
+        store.returnTools(returnRental);
         numToolsRented -= returnRental.numTools();
         rentals.remove(returnRental);
     }
 
+    // Helper function which chooses a random list of non-repeating numbers from a range.
+    // This function was created by user "the" on Stack Overflow, here:
+    // https://stackoverflow.com/a/29750138
     private static int[] sampleRandom(int start, int end, int count) {
         Random rng = new Random();
 

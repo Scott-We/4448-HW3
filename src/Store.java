@@ -2,67 +2,68 @@ import java.util.ArrayList;
 
 
 class Store {
-	private int day;
+	private int date;
 	private int numTools;
 	private int profit;
 	private ArrayList<Tool> tools;
-	private ArrayList<Tool> masterTools;    //a copy of the tool list for verification purposes
 	private ArrayList<Rental> rentals;
 	
 	Store(){
-		day = 0;
+		date = 0;
 		numTools = 20;
 		profit = 0;
-		tools = new ArrayList<>();
-		masterTools = new ArrayList<>();
-		rentals = new ArrayList<>();
+		tools = new ArrayList<Tool>();
+		rentals = new ArrayList<Rental>();
 	}
-	
-	boolean setup(){
+
+	// Creates 4 tools of each type.
+	void setup(){
 		for(int i = 0; i < 4; i++) {
 			Tool t = new ConcreteTool(i);
 			tools.add(t);
-			masterTools.add(t);
 		}
 		for(int i = 0; i < 4; i++) {
 			Tool t = new PaintingTool(i);
 			tools.add(t);
-			masterTools.add(t);
 		}
 		for(int i = 0; i < 4; i++) {
 			Tool t = new PlumbingTool(i);
 			tools.add(t);
-			masterTools.add(t);
 		}
 		for(int i = 0; i < 4; i++) {
 			Tool t = new WoodworkingTool(i);
 			tools.add(t);
-			masterTools.add(t);
 		}
 		for(int i = 0; i < 4; i++) {
 			Tool t = new YardworkingTool(i);
 			tools.add(t);
-			masterTools.add(t);
 		}
-		return(true);
 	}
-	
-	void update(int dayNumber){
-		day = dayNumber;
+
+	// Just updates the local copy of the date, used when
+	// creating rentals.
+	void update(int dateNumber){
+		date = dateNumber;
 	}
-	
+
+	// Returns the number of tools available.
 	int getNumTools(){
-		return(numTools);
+		return numTools;
 	}
-	
+
+	// Returns the full inventory so customers can look through it.
+	// Strictly speaking this isn't necessary for our simulation,
+	// since customers just generate random indices for rental,
+	// but this would be used in a more realistic simulation where
+	// the customers don't randomly pick tools.
 	ArrayList<Tool> getAvailableTools(){
-		return(tools);
+		return tools;
 	}
-	
+
+	// Generates a Rental for a customer, removes those tools from its
+	// inventory, and adjusts its profit appropriately.
 	Rental rent(ArrayList<Tool> toRent, int numDays, String renter) {
-		
-		Rental r = new Rental(day, day + numDays, renter);
-		
+		Rental r = new Rental(date, date + numDays, renter);
 		int cost = 0;
 		
 		for(Tool t : toRent){
@@ -73,19 +74,20 @@ class Store {
 		
 		profit += cost;
 		rentals.add(r);
-		
 		numTools -= toRent.size();
 		
-		return(r);
+		return r;
 	}
-	
+
+	// Collects tools from a rental a puts them back in its inventory.
 	void returnTools(Rental r){
 		tools.addAll(r.getTools());
 		numTools += r.numTools();
 	}
-	
+
+	// Prints a summary of the history of the simulation, including total profit,
+	// remaining inventory, past rentals, and current rentals.
 	void printSummary(){
-		
 		System.out.println("There are " + tools.size() + " tools in the store.");
 		if(numTools >0) {
 			System.out.print("The tool(s) are: [" + tools.get(0).getID());
@@ -98,14 +100,14 @@ class Store {
 			System.out.println("].");
 		}
 		
-		System.out.println("The store made $" + profit + " over the 35 days");
+		System.out.println("The store made $" + profit + " over the " + date + " days");
 		
 		System.out.println("=====================================================");
 		System.out.println();
 		System.out.println("Completed rentals:");
 		
 		for(Rental r: rentals){
-			if(r.isDue(day)){
+			if(r.isDue(date)){
 				System.out.println(r);
 			}
 		}
@@ -116,55 +118,13 @@ class Store {
 		int toolsOut = 0;
 		
 		for(Rental r: rentals){
-			if(!r.isDue(day)){
+			if(!r.isDue(date)){
 				System.out.println(r);
 				toolsOut += r.numTools();
 			}
 		}
 		
 		System.out.println();
-		
 		System.out.println("Number of tools currently out: " + toolsOut);
-		
-		
-		/*
-		Display the current location of each tool.
-		
-		System.out.println();
-		
-		int toolI = 0;
-		
-		for(Tool t: masterTools){
-			if(toolI == 4){
-				System.out.println();
-				toolI = 0;
-			}
-			boolean found = false;
-			if(tools.contains(t)){
-				System.out.println("Tool: " + t.getID() + " is in the store");
-				found = true;
-			}
-			for(Rental r: rentals){
-				if(!r.isDue(day)){
-					if(r.getTools().contains(t)){
-						System.out.println("Tool: " + t.getID() + " is with " + r.renter);
-						found = true;
-					}
-				}
-			}
-			if(!found){
-				Rental lastScene = new Rental(-1, -1, "Nill");
-				for(Rental r: rentals){
-					if(r.getTools().contains(t)){
-						lastScene = r;
-					}
-				}
-				System.out.println("Tool: " + t.getID() + " was rented: " + lastScene.rentDate + ":" + lastScene.returnDate + " to " + lastScene.renter);
-				
-			}
-			toolI++;
-			
-		}
-		//*/
 	}
 }

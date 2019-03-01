@@ -1,3 +1,4 @@
+// Superclass representing a generic Tool.
 public abstract class Tool {
 	private String ID;
 
