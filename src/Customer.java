@@ -1,24 +1,41 @@
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.*;
 
-public abstract class Customer
+public class Customer
 {
-    protected Store business;
-    protected ArrayList<Rental> rentals;
-    protected int numToolsRented;
+    private Store business;
+    private ArrayList<Rental> rentals;
+    private int numToolsRented;
 
-    protected int maxTools;
-    protected int minTools;
-    protected int minDays;
-    protected int maxDays;
-    protected String name;
+    private String name;
 
-    public Customer(Store business, String _name)
-    {
-    	this.name = _name;
+    private RentalStrategy rentalStrategy;
+
+    private Customer(Store business, String name, RentalStrategy strategy) {
+        this.name = name;
         rentals = new ArrayList<Rental>();
         this.business = business;
         numToolsRented = 0;
+        this.rentalStrategy = strategy;
+    }
+
+    public static Customer createCasualCustomer(Store business, int ID)
+    {
+        RentalStrategy rs = new RandomRentalStrategy(1, 2, 1, 2);
+        String name = "Casual Customer " + ID;
+        return new Customer(business, name, rs);
+    }
+    public static Customer createRegularCustomer(Store business, int ID)
+    {
+        RentalStrategy rs = new RandomRentalStrategy(1, 3, 3, 5);
+        String name = "Regular Customer " + ID;
+        return new Customer(business, name, rs);
+    }
+    public static Customer createBusinessCustomer(Store business, int ID)
+    {
+        RentalStrategy rs = new ExactRentalStrategy(3, 7);
+        String name = "Business Customer " + ID;
+        return new Customer(business, name, rs);
     }
 
     public void update(int time, boolean morning)
@@ -47,54 +64,40 @@ public abstract class Customer
         }
         else
         {
-            if(numToolsRented < 3 && business.getNumTools() >= minTools)
-            {
-                //System.out.println(name + " is renting on day " + time);
+            if (ThreadLocalRandom.current().nextInt(0, 3) == 0) {
                 rent();
             }
         }
     }
 
-    protected void rent()
+    private void rent()
     {
         int availableTools = business.getNumTools();
-        int numToolsToRent;
         ArrayList<Tool> toolsToRent = new ArrayList<Tool>();
 
-        int daysToRent = ThreadLocalRandom.current().nextInt(minDays, maxDays + 1);
+        int daysToRent = rentalStrategy.numDaysToRent();
+        int numToolsToRent = rentalStrategy.numToolsToRent();
 
-        if (availableTools >= maxTools)
-        {
-            numToolsToRent = ThreadLocalRandom.current().nextInt(minTools, maxTools + 1);
-        }
-        else
-        {
-            numToolsToRent = ThreadLocalRandom.current().nextInt(minTools, availableTools + 1);
-        }
+        if (availableTools >= numToolsToRent && numToolsToRent + numToolsRented <= 3) {
+            int[] toolIndices = sampleRandom(0, availableTools, numToolsToRent);
 
-        if (numToolsToRent + numToolsRented > 3)
-        {
-            numToolsToRent -= 3 - numToolsRented;
-        }
+            for (int i = 0; i < numToolsToRent; i++) {
+                toolsToRent.add(business.getAvailableTools().get(toolIndices[i]));
+            }
 
-        int[] toolIndices = sampleRandomNumbersWithoutRepetition(0, availableTools, numToolsToRent);
-        for(int i = 0; i < numToolsToRent; i++)
-        {
-            toolsToRent.add(business.getAvailableTools().get(toolIndices[i]));
+            rentals.add(business.rent(toolsToRent, daysToRent, name));
+            numToolsRented += numToolsToRent;
         }
-    
-        rentals.add(business.rent(toolsToRent, daysToRent, name));
-        numToolsRented += numToolsToRent;
     }
 
-    protected void returnTools(Rental returnRental)
+    private void returnTools(Rental returnRental)
     {
         business.returnTools(returnRental);
         numToolsRented -= returnRental.numTools();
         rentals.remove(returnRental);
     }
 
-    protected static int[] sampleRandomNumbersWithoutRepetition(int start, int end, int count) {
+    private static int[] sampleRandom(int start, int end, int count) {
         Random rng = new Random();
 
         int[] result = new int[count];

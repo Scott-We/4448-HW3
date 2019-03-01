@@ -21,15 +21,15 @@ class Simulation {
 			switch (type){
 				case 0:
 					numBusi ++;
-					customers.add(new BusinessCustomer(store, "Business customer " + numBusi));
+					customers.add(Customer.createBusinessCustomer(store, numBusi));
 					break;
 				case 1:
 					numCasu ++;
-					customers.add(new CasualCustomer(store, "Casual customer " + numCasu));
+					customers.add(Customer.createCasualCustomer(store, numCasu));
 					break;
 				case 2:
 					numRegu ++;
-					customers.add(new RegularCustomer(store, "Regular customer " + numRegu));
+					customers.add(Customer.createRegularCustomer(store, numRegu));
 					break;
 			}
 			
