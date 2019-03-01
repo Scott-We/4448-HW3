@@ -3,6 +3,7 @@ public class ConcreteTool extends Tool {
 		super("Concrete Tool #" + Integer.toString(n));
 	}
 
+	// All concrete tools cost $5 per day
 	public int getPrice() {
 		return 5;
 	}

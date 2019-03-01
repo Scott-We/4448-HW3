@@ -1,43 +1,54 @@
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.*;
 
-public abstract class Customer
+public class Customer
 {
-    protected Store business;
-    protected ArrayList<Rental> rentals;
-    protected int numToolsRented;
+    private Store store;
+    private ArrayList<Rental> rentals;
+    private int numToolsRented;
 
-    protected int maxTools;
-    protected int minTools;
-    protected int minDays;
-    protected int maxDays;
-    protected String name;
+    private String name;
 
-    public Customer(Store business, String _name)
-    {
-    	this.name = _name;
+    private RentalStrategy rentalStrategy;
+
+    private Customer(Store store, String name, RentalStrategy strategy) {
+        this.name = name;
         rentals = new ArrayList<Rental>();
-        this.business = business;
+        this.store = store;
         numToolsRented = 0;
+        this.rentalStrategy = strategy;
     }
 
+    // Handles creation of Casual Customers. Generates a RandomRentalStrategy with the appropriate limits.
+    public static Customer createCasualCustomer(Store store, int ID)
+    {
+        RentalStrategy rs = new RandomRentalStrategy(1, 2, 1, 2);
+        String name = "Casual Customer " + ID;
+        return new Customer(store, name, rs);
+    }
+
+    // Handles creation of Regular Customers. Generates a RanomRentalStrategy with the appropriate limits.
+    public static Customer createRegularCustomer(Store store, int ID)
+    {
+        RentalStrategy rs = new RandomRentalStrategy(1, 3, 3, 5);
+        String name = "Regular Customer " + ID;
+        return new Customer(store, name, rs);
+    }
+    // Handles creation of Business Customers. Generates an ExactRentalStrategy with the appropriate numbers.
+    public static Customer createBusinessCustomer(Store store, int ID)
+    {
+        RentalStrategy rs = new ExactRentalStrategy(3, 7);
+        String name = "Business Customer " + ID;
+        return new Customer(store, name, rs);
+    }
+
+    // In the mornings, return any rentals that are due.
+    // In the afternoon, make a rental with 1/3 probability.
     public void update(int time, boolean morning)
     {
         if(morning)
         {
-            for(int i = 0; i < rentals.size(); i++)
-            {
-                if(rentals.get(i).isDue(time))
-                {
-                    if(rentals.get(i).returnDate < time){
-                        System.out.println(rentals.get(i) + " is over due");
-                    }else{
-                        //System.out.println(rentals.get(i) + " is due");
-                    }
-                }
-            }
             for(int i = rentals.size()-1; i >= 0; i--)
-            //for(int i = 0; i < rentals.size(); i++)
             {
                 if(rentals.get(i).isDue(time))
                 {
@@ -47,54 +58,46 @@ public abstract class Customer
         }
         else
         {
-            if(numToolsRented < 3 && business.getNumTools() >= minTools)
-            {
-                //System.out.println(name + " is renting on day " + time);
+            if (ThreadLocalRandom.current().nextInt(0, 3) == 0) {
                 rent();
             }
         }
     }
 
-    protected void rent()
+    // Use the RentalStrategy to choose number of tools and how long to rent.
+    // If possible, choose a random list of tools and rent them.
+    private void rent()
     {
-        int availableTools = business.getNumTools();
-        int numToolsToRent;
+        int availableTools = store.getNumTools();
         ArrayList<Tool> toolsToRent = new ArrayList<Tool>();
 
-        int daysToRent = ThreadLocalRandom.current().nextInt(minDays, maxDays + 1);
+        int daysToRent = rentalStrategy.numDaysToRent();
+        int numToolsToRent = rentalStrategy.numToolsToRent();
 
-        if (availableTools >= maxTools)
-        {
-            numToolsToRent = ThreadLocalRandom.current().nextInt(minTools, maxTools + 1);
-        }
-        else
-        {
-            numToolsToRent = ThreadLocalRandom.current().nextInt(minTools, availableTools + 1);
-        }
+        if (availableTools >= numToolsToRent && numToolsToRent + numToolsRented <= 3) {
+            int[] toolIndices = sampleRandom(0, availableTools, numToolsToRent);
 
-        if (numToolsToRent + numToolsRented > 3)
-        {
-            numToolsToRent -= 3 - numToolsRented;
-        }
+            for (int i = 0; i < numToolsToRent; i++) {
+                toolsToRent.add(store.getAvailableTools().get(toolIndices[i]));
+            }
 
-        int[] toolIndices = sampleRandomNumbersWithoutRepetition(0, availableTools, numToolsToRent);
-        for(int i = 0; i < numToolsToRent; i++)
-        {
-            toolsToRent.add(business.getAvailableTools().get(toolIndices[i]));
+            rentals.add(store.rent(toolsToRent, daysToRent, name));
+            numToolsRented += numToolsToRent;
         }
-    
-        rentals.add(business.rent(toolsToRent, daysToRent, name));
-        numToolsRented += numToolsToRent;
     }
 
-    protected void returnTools(Rental returnRental)
+    // Returns a rental.
+    private void returnTools(Rental returnRental)
     {
-        business.returnTools(returnRental);
+        store.returnTools(returnRental);
         numToolsRented -= returnRental.numTools();
         rentals.remove(returnRental);
     }
 
-    protected static int[] sampleRandomNumbersWithoutRepetition(int start, int end, int count) {
+    // Helper function which chooses a random list of non-repeating numbers from a range.
+    // This function was created by user "the" on Stack Overflow, here:
+    // https://stackoverflow.com/a/29750138
+    private static int[] sampleRandom(int start, int end, int count) {
         Random rng = new Random();
 
         int[] result = new int[count];
